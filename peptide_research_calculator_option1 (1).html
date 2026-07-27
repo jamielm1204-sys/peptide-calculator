@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Peptide Research Calculator</title>
+<style>
+  :root{
+    --calc-bg:#0b0b0b;
+    --calc-card:#151515;
+    --calc-card-2:#1d1d1d;
+    --calc-border:#343434;
+    --calc-accent:#7a3cff;
+    --calc-accent-dark:#5c24cb;
+    --calc-text:#ffffff;
+    --calc-muted:#bdbdbd;
+  }
+
+  *{box-sizing:border-box}
+
+  body{
+    margin:0;
+    padding:28px 14px;
+    background:#eeeeee;
+    font-family:Arial,Helvetica,sans-serif;
+  }
+
+  #peptide-research-calculator{
+    position:relative;
+    z-index:2;
+    max-width:780px;
+    margin:0 auto;
+    color:var(--calc-text);
+    isolation:isolate;
+  }
+
+  #peptide-research-calculator,
+  #peptide-research-calculator *{
+    pointer-events:auto !important;
+  }
+
+  .calc-shell{
+    overflow:hidden;
+    border:1px solid #292929;
+    border-radius:20px;
+    background:var(--calc-bg);
+    box-shadow:0 18px 55px rgba(0,0,0,.28);
+  }
+
+  .calc-hero{
+    padding:34px 24px 28px;
+    text-align:center;
+    background:
+      linear-gradient(135deg,rgba(122,60,255,.17),transparent 48%),
+      linear-gradient(180deg,#141414,#080808);
+    border-bottom:3px solid var(--calc-accent);
+  }
+
+  .calc-kicker{
+    margin:0 0 8px;
+    color:var(--calc-accent);
+    font-size:13px;
+    font-weight:800;
+    letter-spacing:2px;
+    text-transform:uppercase;
+  }
+
+  .calc-hero h1{
+    margin:0;
+    font-size:clamp(29px,5vw,44px);
+    line-height:1.05;
+  }
+
+  .calc-hero p{
+    margin:10px auto 0;
+    max-width:600px;
+    color:var(--calc-muted);
+    line-height:1.5;
+  }
+
+  .calc-disclaimer{
+    margin:22px;
+    padding:15px 16px;
+    border:1px solid rgba(122,60,255,.45);
+    border-left:5px solid var(--calc-accent);
+    border-radius:10px;
+    background:#1c1530;
+    color:#e7ddff;
+    font-size:13px;
+    line-height:1.5;
+  }
+
+  .calc-content{
+    padding:4px 22px 24px;
+  }
+
+  .calc-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+  }
+
+  .calc-field{
+    min-width:0;
+  }
+
+  .calc-field.calc-wide{
+    grid-column:1/-1;
+  }
+
+  .calc-field label{
+    display:block;
+    margin:0 0 8px;
+    color:#fff;
+    font-size:14px;
+    font-weight:800;
+  }
+
+  .calc-input-wrap{
+    position:relative;
+    z-index:5;
+    display:flex;
+    min-height:54px;
+    overflow:hidden;
+    border:1px solid var(--calc-border);
+    border-radius:10px;
+    background:var(--calc-card-2);
+  }
+
+  .calc-input-wrap:focus-within{
+    border-color:var(--calc-accent);
+    box-shadow:0 0 0 3px rgba(122,60,255,.16);
+  }
+
+  #peptide-research-calculator input,
+  #peptide-research-calculator select,
+  #peptide-research-calculator button{
+    position:relative;
+    z-index:10;
+    touch-action:manipulation;
+  }
+
+  #peptide-research-calculator input,
+  #peptide-research-calculator select{
+    width:100%;
+    min-width:0;
+    border:0;
+    outline:0;
+    background:transparent;
+    color:#fff;
+    font-size:17px;
+  }
+
+  #peptide-research-calculator input{
+    padding:15px 14px;
+  }
+
+  #peptide-research-calculator input::placeholder{
+    color:#777;
+  }
+
+  #peptide-research-calculator select{
+    max-width:110px;
+    padding:0 12px;
+    border-left:1px solid var(--calc-border);
+    cursor:pointer;
+  }
+
+  .calc-unit{
+    display:flex;
+    min-width:76px;
+    align-items:center;
+    justify-content:center;
+    border-left:1px solid var(--calc-border);
+    color:#d7d7d7;
+    font-weight:700;
+  }
+
+  .calc-buttons{
+    display:flex;
+    gap:10px;
+    margin-top:22px;
+  }
+
+  .calc-button{
+    flex:1;
+    min-height:50px;
+    border:0;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:16px;
+    font-weight:800;
+  }
+
+  .calc-primary{
+    background:var(--calc-accent);
+    color:#fff;
+  }
+
+  .calc-primary:hover{
+    background:var(--calc-accent-dark);
+  }
+
+  .calc-secondary{
+    background:#303030;
+    color:#fff;
+  }
+
+  .calc-error{
+    min-height:20px;
+    margin:12px 0 0;
+    color:#d6b8ff;
+    font-size:14px;
+    font-weight:700;
+  }
+
+  .calc-results{
+    margin-top:22px;
+    padding:20px;
+    border:1px solid var(--calc-border);
+    border-radius:14px;
+    background:var(--calc-card);
+  }
+
+  .calc-results[hidden]{
+    display:none !important;
+  }
+
+  .calc-results h2{
+    margin:0 0 10px;
+    font-size:22px;
+  }
+
+  .calc-result{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:18px;
+    padding:15px 0;
+    border-bottom:1px solid #2d2d2d;
+  }
+
+  .calc-result:last-of-type{
+    border-bottom:0;
+  }
+
+  .calc-result span{
+    color:#d7d7d7;
+  }
+
+  .calc-result strong{
+    color:#a77cff;
+    font-size:18px;
+    text-align:right;
+  }
+
+  .calc-result-note{
+    margin-top:14px;
+    padding:12px;
+    border-radius:9px;
+    background:#222;
+    color:#c9c9c9;
+    font-size:12px;
+    line-height:1.5;
+  }
+
+  .calc-reference{
+    padding:22px;
+    border-top:1px solid #272727;
+    background:#0f0f0f;
+  }
+
+  .calc-reference h2{
+    margin:0 0 14px;
+    font-size:21px;
+  }
+
+  .calc-reference-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+  }
+
+  .calc-reference-card{
+    padding:16px 12px;
+    border:1px solid #2e2e2e;
+    border-radius:11px;
+    background:#171717;
+    text-align:center;
+  }
+
+  .calc-reference-card strong{
+    display:block;
+    margin-bottom:7px;
+    color:#a77cff;
+  }
+
+  .calc-reference-card span{
+    color:#d6d6d6;
+    font-size:14px;
+  }
+
+  .calc-faq{
+    padding:22px;
+    border-top:1px solid #272727;
+    background:#0b0b0b;
+  }
+
+  .calc-faq h2{
+    margin:0 0 14px;
+    font-size:21px;
+  }
+
+  .calc-faq details{
+    margin-bottom:10px;
+    padding:14px 16px;
+    border:1px solid #303030;
+    border-radius:10px;
+    background:#171717;
+  }
+
+  .calc-faq summary{
+    cursor:pointer;
+    font-weight:800;
+  }
+
+  .calc-faq p{
+    margin:10px 0 0;
+    color:#c7c7c7;
+    line-height:1.6;
+  }
+
+  .calc-footer{
+    padding:16px 22px 20px;
+    border-top:1px solid #252525;
+    color:#8f8f8f;
+    font-size:12px;
+    text-align:center;
+  }
+
+  @media(max-width:640px){
+    body{padding:12px 8px}
+    .calc-grid{grid-template-columns:1fr}
+    .calc-field.calc-wide{grid-column:auto}
+    .calc-reference-grid{grid-template-columns:1fr}
+    .calc-buttons{flex-direction:column}
+    .calc-result{align-items:flex-start;flex-direction:column}
+    .calc-result strong{text-align:left}
+  }
+</style>
+</head>
+<body>
+
+<div id="peptide-research-calculator">
+  <div class="calc-shell">
+    <header class="calc-hero">
+      <p class="calc-kicker">Educational Research Tool</p>
+      <h1>Peptide Research Calculator</h1>
+      <p>Simple reconstitution and concentration calculator</p>
+    </header>
+
+    <div class="calc-disclaimer">
+      For educational and research purposes only. This calculator does not provide medical advice or replace instructions from a licensed clinician, pharmacy, or manufacturer. Always verify calculations independently.
+    </div>
+
+    <main class="calc-content">
+      <div class="calc-grid">
+        <div class="calc-field">
+          <label for="calcPeptideAmount">Peptide amount</label>
+          <div class="calc-input-wrap">
+            <input id="calcPeptideAmount" inputmode="decimal" type="number" min="0" step="any" placeholder="15">
+            <span class="calc-unit">mg</span>
+          </div>
+        </div>
+
+        <div class="calc-field">
+          <label for="calcWaterAmount">Bacteriostatic water</label>
+          <div class="calc-input-wrap">
+            <input id="calcWaterAmount" inputmode="decimal" type="number" min="0" step="any" placeholder="1.5">
+            <span class="calc-unit">mL</span>
+          </div>
+        </div>
+
+        <div class="calc-field calc-wide">
+          <label for="calcDesiredAmount">Desired research amount</label>
+          <div class="calc-input-wrap">
+            <input id="calcDesiredAmount" inputmode="decimal" type="number" min="0" step="any" placeholder="1">
+            <select id="calcDesiredUnit" aria-label="Desired amount unit">
+              <option value="mg">mg</option>
+              <option value="mcg">mcg</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="calc-buttons">
+        <button class="calc-button calc-primary" id="calcCalculate" type="button">Calculate</button>
+        <button class="calc-button calc-secondary" id="calcReset" type="button">Reset</button>
+      </div>
+
+      <p class="calc-error" id="calcError" aria-live="polite"></p>
+
+      <section class="calc-results" id="calcResults" hidden aria-live="polite">
+        <h2>Results</h2>
+
+        <div class="calc-result">
+          <span>Concentration</span>
+          <strong id="calcConcentration">—</strong>
+        </div>
+
+        <div class="calc-result">
+          <span>Calculated liquid volume</span>
+          <strong id="calcVolume">—</strong>
+        </div>
+
+        <div class="calc-result">
+          <span>U-100 syringe-unit equivalent</span>
+          <strong id="calcUnits">—</strong>
+        </div>
+
+        <div class="calc-result">
+          <span>Total calculated amounts per vial</span>
+          <strong id="calcTotal">—</strong>
+        </div>
+
+        <div class="calc-result-note">
+          U-100 syringe markings represent liquid volume: 100 units = 1 mL and 1 unit = 0.01 mL. They do not independently identify the amount of peptide.
+        </div>
+      </section>
+    </main>
+
+    <section class="calc-reference">
+      <h2>Quick reference</h2>
+      <div class="calc-reference-grid">
+        <div class="calc-reference-card">
+          <strong>mg to mcg</strong>
+          <span>1 mg = 1,000 mcg</span>
+        </div>
+        <div class="calc-reference-card">
+          <strong>mL to units</strong>
+          <span>0.01 mL = 1 U-100 unit</span>
+        </div>
+        <div class="calc-reference-card">
+          <strong>U-100 syringe</strong>
+          <span>100 units = 1 mL</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="calc-faq">
+      <h2>Frequently asked questions</h2>
+
+      <details>
+        <summary>What is reconstitution?</summary>
+        <p>Reconstitution is the process of adding an appropriate diluent to a powdered substance to create a liquid solution.</p>
+      </details>
+
+      <details>
+        <summary>Why does the amount of water matter?</summary>
+        <p>The amount of water changes the concentration. Less water creates a more concentrated solution, while more water creates a less concentrated solution.</p>
+      </details>
+
+      <details>
+        <summary>What is the difference between mcg and mg?</summary>
+        <p>One milligram equals 1,000 micrograms.</p>
+      </details>
+
+      <details>
+        <summary>What do syringe units measure?</summary>
+        <p>On a U-100 syringe, the markings represent liquid volume. One hundred units equals 1 mL.</p>
+      </details>
+    </section>
+
+    <footer class="calc-footer">
+      Educational resource • Always verify calculations independently
+    </footer>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  const root = document.getElementById("peptide-research-calculator");
+  if (!root) return;
+
+  const peptide = root.querySelector("#calcPeptideAmount");
+  const water = root.querySelector("#calcWaterAmount");
+  const desired = root.querySelector("#calcDesiredAmount");
+  const desiredUnit = root.querySelector("#calcDesiredUnit");
+  const calculateBtn = root.querySelector("#calcCalculate");
+  const resetBtn = root.querySelector("#calcReset");
+  const error = root.querySelector("#calcError");
+  const results = root.querySelector("#calcResults");
+
+  const concentrationOut = root.querySelector("#calcConcentration");
+  const volumeOut = root.querySelector("#calcVolume");
+  const unitsOut = root.querySelector("#calcUnits");
+  const totalOut = root.querySelector("#calcTotal");
+
+  function readNumber(input){
+    return parseFloat(input.value);
+  }
+
+  function fmt(value, maxDecimals){
+    return new Intl.NumberFormat("en-US",{
+      maximumFractionDigits:maxDecimals
+    }).format(value);
+  }
+
+  function calculate(){
+    error.textContent = "";
+    results.hidden = true;
+
+    const peptideMg = readNumber(peptide);
+    const waterMl = readNumber(water);
+    let desiredMg = readNumber(desired);
+
+    if (desiredUnit.value === "mcg"){
+      desiredMg = desiredMg / 1000;
+    }
+
+    if (![peptideMg, waterMl, desiredMg].every(Number.isFinite) ||
+        peptideMg <= 0 || waterMl <= 0 || desiredMg <= 0){
+      error.textContent = "Please enter a number greater than zero in all three fields.";
+      return;
+    }
+
+    if (desiredMg > peptideMg){
+      error.textContent = "The desired amount cannot exceed the total amount in the vial.";
+      return;
+    }
+
+    const concentration = peptideMg / waterMl;
+    const volumeMl = desiredMg / concentration;
+    const u100Units = volumeMl * 100;
+    const totalAmounts = peptideMg / desiredMg;
+
+    concentrationOut.textContent = fmt(concentration,4) + " mg/mL";
+    volumeOut.textContent = fmt(volumeMl,4) + " mL";
+    unitsOut.textContent = fmt(u100Units,2) + " units";
+    totalOut.textContent = fmt(totalAmounts,2);
+
+    results.hidden = false;
+  }
+
+  function reset(){
+    peptide.value = "";
+    water.value = "";
+    desired.value = "";
+    desiredUnit.value = "mg";
+    error.textContent = "";
+    results.hidden = true;
+    peptide.focus();
+  }
+
+  calculateBtn.addEventListener("click", calculate);
+  resetBtn.addEventListener("click", reset);
+
+  [peptide, water, desired].forEach(function(input){
+    input.addEventListener("keydown", function(event){
+      if (event.key === "Enter") calculate();
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
