@@ -71,6 +71,15 @@
     line-height:1.05;
   }
 
+
+  .calc-created{
+    margin:10px 0 0 !important;
+    color:#ffffff !important;
+    font-size:15px;
+    font-weight:800;
+    letter-spacing:.2px;
+  }
+
   .calc-hero p{
     margin:10px auto 0;
     max-width:600px;
@@ -331,11 +340,21 @@
   }
 
   .calc-footer{
-    padding:16px 22px 20px;
+    padding:18px 22px 22px;
     border-top:1px solid #252525;
     color:#8f8f8f;
     font-size:12px;
+    line-height:1.7;
     text-align:center;
+  }
+
+  .calc-footer strong{
+    color:#ffffff;
+    font-size:14px;
+  }
+
+  .calc-version{
+    color:#777777;
   }
 
   @media(max-width:640px){
@@ -356,6 +375,7 @@
     <header class="calc-hero">
       <p class="calc-kicker">Educational Research Tool</p>
       <h1>Peptide Research Calculator</h1>
+      <p class="calc-created">Created by Jamie&#39;s Peptide Education</p>
       <p>Simple reconstitution and concentration calculator</p>
     </header>
 
@@ -424,7 +444,7 @@
         </div>
 
         <div class="calc-result-note">
-         U-100 syringe markings represent liquid volume: 100 units = 1 mL = 1 cc, and 1 unit = 0.01 mL. They do not independently identify the amount of peptide.
+          U-100 syringe markings represent liquid volume: 100 units = 1 mL = 1 cc, and 1 unit = 0.01 mL. They do not independently identify the amount of peptide.
         </div>
       </section>
     </main>
@@ -437,15 +457,14 @@
           <span>1 mg = 1,000 mcg</span>
         </div>
         <div class="calc-reference-card">
-    <strong>mL to Units</strong>
-   <span>1 mL = 100 units (U-100 syringe)</span>
-</div>
-      
-        <div class="calc-reference-card">
-    <strong>U-100 Syringe</strong>
-    <span>100 units = 1 mL = 1 cc</span>
-</div>
+          <strong>mL to Units</strong>
+          <span>1 mL = 100 units (U-100 syringe)</span>
         </div>
+        <div class="calc-reference-card">
+          <strong>U-100 Syringe</strong>
+          <span>100 units = 1 mL = 1 cc</span>
+        </div>
+      </div>
     </section>
 
     <section class="calc-faq">
@@ -470,10 +489,17 @@
         <summary>What do syringe units measure?</summary>
         <p>On a U-100 syringe, the markings represent liquid volume. One hundred units equals 1 mL.</p>
       </details>
+
+      <details>
+        <summary>What is the difference between mL and cc?</summary>
+        <p>There is no difference in volume. One milliliter equals one cubic centimeter, so 1 mL = 1 cc. The terms may be used interchangeably.</p>
+      </details>
     </section>
 
     <footer class="calc-footer">
-      Educational resource • Always verify calculations independently
+      <strong>Created by Jamie&#39;s Peptide Education</strong><br>
+      Educational resource • Free to use • Always verify calculations independently<br>
+      <span class="calc-version">Version 1.2 • Updated July 2026</span>
     </footer>
   </div>
 </div>
