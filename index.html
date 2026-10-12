@@ -6,14 +6,14 @@
 <title>Peptide Research Calculator</title>
 <style>
   :root{
-    --calc-bg:#0b0b0b;
-    --calc-card:#151515;
-    --calc-card-2:#1d1d1d;
-    --calc-border:#343434;
-    --calc-accent:#7a3cff;
-    --calc-accent-dark:#5c24cb;
-    --calc-text:#ffffff;
-    --calc-muted:#bdbdbd;
+    --calc-bg:#F7F5F0;
+    --calc-card:#DCE5DC;
+    --calc-card-2:#ffffff;
+    --calc-border:#568B87;
+    --calc-accent:#203F43;
+    --calc-accent-dark:#315C60;
+    --calc-text:#203F43;
+    --calc-muted:#476366;
   }
 
   *{box-sizing:border-box}
@@ -21,7 +21,7 @@
   body{
     margin:0;
     padding:28px 14px;
-    background:#eeeeee;
+    background:#F7F5F0;
     font-family:Arial,Helvetica,sans-serif;
   }
 
@@ -41,18 +41,18 @@
 
   .calc-shell{
     overflow:hidden;
-    border:1px solid #292929;
+    border:1px solid #B5AA9A;
     border-radius:20px;
     background:var(--calc-bg);
-    box-shadow:0 18px 55px rgba(0,0,0,.28);
+    box-shadow:0 18px 55px rgba(32,63,67,.12);
   }
 
   .calc-hero{
     padding:34px 24px 28px;
     text-align:center;
     background:
-      linear-gradient(135deg,rgba(122,60,255,.17),transparent 48%),
-      linear-gradient(180deg,#141414,#080808);
+      linear-gradient(135deg,rgba(86,139,135,.17),transparent 48%),
+      linear-gradient(180deg,#DCE5DC,#F7F5F0);
     border-bottom:3px solid var(--calc-accent);
   }
 
@@ -74,7 +74,7 @@
 
   .calc-created{
     margin:10px 0 0 !important;
-    color:#ffffff !important;
+    color:#203F43 !important;
     font-size:15px;
     font-weight:800;
     letter-spacing:.2px;
@@ -90,11 +90,11 @@
   .calc-disclaimer{
     margin:22px;
     padding:15px 16px;
-    border:1px solid rgba(122,60,255,.45);
+    border:1px solid rgba(86,139,135,.45);
     border-left:5px solid var(--calc-accent);
     border-radius:10px;
-    background:#1c1530;
-    color:#e7ddff;
+    background:#DCE5DC;
+    color:#203F43;
     font-size:13px;
     line-height:1.5;
   }
@@ -120,7 +120,7 @@
   .calc-field label{
     display:block;
     margin:0 0 8px;
-    color:#fff;
+    color:#203F43;
     font-size:14px;
     font-weight:800;
   }
@@ -138,7 +138,7 @@
 
   .calc-input-wrap:focus-within{
     border-color:var(--calc-accent);
-    box-shadow:0 0 0 3px rgba(122,60,255,.16);
+    box-shadow:0 0 0 3px rgba(86,139,135,.16);
   }
 
   #peptide-research-calculator input,
@@ -156,7 +156,7 @@
     border:0;
     outline:0;
     background:transparent;
-    color:#fff;
+    color:#203F43;
     font-size:17px;
   }
 
@@ -165,7 +165,7 @@
   }
 
   #peptide-research-calculator input::placeholder{
-    color:#777;
+    color:#647A7C;
   }
 
   #peptide-research-calculator select{
@@ -181,7 +181,7 @@
     align-items:center;
     justify-content:center;
     border-left:1px solid var(--calc-border);
-    color:#d7d7d7;
+    color:#203F43;
     font-weight:700;
   }
 
@@ -203,7 +203,7 @@
 
   .calc-primary{
     background:var(--calc-accent);
-    color:#fff;
+    color:#203F43;
   }
 
   .calc-primary:hover{
@@ -211,14 +211,14 @@
   }
 
   .calc-secondary{
-    background:#303030;
-    color:#fff;
+    background:#B5AA9A;
+    color:#203F43;
   }
 
   .calc-error{
     min-height:20px;
     margin:12px 0 0;
-    color:#d6b8ff;
+    color:#8A3434;
     font-size:14px;
     font-weight:700;
   }
@@ -246,7 +246,7 @@
     justify-content:space-between;
     gap:18px;
     padding:15px 0;
-    border-bottom:1px solid #2d2d2d;
+    border-bottom:1px solid #B5AA9A;
   }
 
   .calc-result:last-of-type{
@@ -254,11 +254,11 @@
   }
 
   .calc-result span{
-    color:#d7d7d7;
+    color:#203F43;
   }
 
   .calc-result strong{
-    color:#a77cff;
+    color:#203F43;
     font-size:18px;
     text-align:right;
   }
@@ -267,16 +267,16 @@
     margin-top:14px;
     padding:12px;
     border-radius:9px;
-    background:#222;
-    color:#c9c9c9;
+    background:#F7F5F0;
+    color:#476366;
     font-size:12px;
     line-height:1.5;
   }
 
   .calc-reference{
     padding:22px;
-    border-top:1px solid #272727;
-    background:#0f0f0f;
+    border-top:1px solid #B5AA9A;
+    background:#F7F5F0;
   }
 
   .calc-reference h2{
@@ -292,27 +292,27 @@
 
   .calc-reference-card{
     padding:16px 12px;
-    border:1px solid #2e2e2e;
+    border:1px solid #B5AA9A;
     border-radius:11px;
-    background:#171717;
+    background:#DCE5DC;
     text-align:center;
   }
 
   .calc-reference-card strong{
     display:block;
     margin-bottom:7px;
-    color:#a77cff;
+    color:#203F43;
   }
 
   .calc-reference-card span{
-    color:#d6d6d6;
+    color:#203F43;
     font-size:14px;
   }
 
   .calc-faq{
     padding:22px;
-    border-top:1px solid #272727;
-    background:#0b0b0b;
+    border-top:1px solid #B5AA9A;
+    background:#F7F5F0;
   }
 
   .calc-faq h2{
@@ -323,9 +323,9 @@
   .calc-faq details{
     margin-bottom:10px;
     padding:14px 16px;
-    border:1px solid #303030;
+    border:1px solid #B5AA9A;
     border-radius:10px;
-    background:#171717;
+    background:#DCE5DC;
   }
 
   .calc-faq summary{
@@ -335,21 +335,21 @@
 
   .calc-faq p{
     margin:10px 0 0;
-    color:#c7c7c7;
+    color:#476366;
     line-height:1.6;
   }
 
   .calc-footer{
     padding:18px 22px 22px;
-    border-top:1px solid #252525;
-    color:#8f8f8f;
+    border-top:1px solid #B5AA9A;
+    color:#476366;
     font-size:12px;
     line-height:1.7;
     text-align:center;
   }
 
   .calc-footer strong{
-    color:#ffffff;
+    color:#203F43;
     font-size:14px;
   }
 
@@ -366,6 +366,9 @@
     .calc-result{align-items:flex-start;flex-direction:column}
     .calc-result strong{text-align:left}
   }
+
+  .calc-primary{color:#ffffff;}
+  .calc-hero h1{color:#203F43;}
 </style>
 </head>
 <body>
